@@ -1,20 +1,23 @@
+#Name of the GitHub Action.
 name: Simple go Build
 
+#This triggers on the push to the main branch
 on:
   push:
     branches:
       - main
 
+#This GitHub Action has one job defined.
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup Go version
-      uses: actions/setup-go@v2
-      with:
-        go-version: '1.15.1'
-    - run: go run hello-world.go
+  build: # Job Name
+    runs-on: ubuntu-latest # runner runs a ubuntu container.
+    steps: # This jobs have three steps
+    - uses: actions/checkout@v3 #First step checks out this repo. The Uses keyword states that we are using a pre-defined action.
+    - name: Setup Go version # Second step defines the pre defined Go action. This step has a name defined.
+      uses: actions/setup-go@v2 # Pre-defined GitHub Action. This is version 2 of the Action.
+      with: # The with parameter allows for arguments to be passed to the pre-defined action.
+        go-version: '1.15.1' # In this case specify which version of Go.
+    - run: go run hello-world.go # The third step is to run the Go script.
 
 
 
