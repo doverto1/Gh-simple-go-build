@@ -1,23 +1,40 @@
-#Name of the GitHub Action.
-name: Simple go Build
+name: Simple go Build       # The workflow is assigned a name.
 
-#This triggers on the push to the main branch
-on:
+
+on: # The on event identifier.
   push:
     branches:
-      - main
+      - main                # This workflow is triggered when a push operation
+                            # is done to the branch main in this GitHub 
+                            # repository
 
-#This GitHub Action has one job defined.
-jobs:
-  build: # Job Name
-    runs-on: ubuntu-latest # runner runs a ubuntu container.
-    steps: # This jobs have three steps
-    - uses: actions/checkout@v3 #First step checks out this repo. The Uses keyword states that we are using a pre-defined action.
-    - name: Setup Go version # Second step defines the pre defined Go action. This step has a name defined.
-      uses: actions/setup-go@v2 # Pre-defined GitHub Action. This is version 2 of the Action.
-      with: # The with parameter allows for arguments to be passed to the pre-defined action.
-        go-version: '1.15.1' # In this case specify which version of Go.
-    - run: go run hello-world.go # The third step is to run the Go script.
+jobs: # Starts the job portion of the workflow
+  build: # There is one job in this workflow, named build.
+    runs-on: ubuntu-latest  # This job will be executed on a runner system, 
+                            # hosted by GitHub provisioned with a standard 
+                            # ubuntu operating system image.    
+    
+    steps: # This starts the series of steps for this job.
+    - uses: actions/checkout@v3 # The first step is done via pulling in a
+                                # in a predefined action. Note the way it is 
+                                # referenced. actions/checkout@v3 refers to the
+                                # relative path after github.com, so this really 
+                                # says it is going to run/use the action defined
+                                # at github.com/actions/checkout.
+
+    - name: Setup Go version    # The hyphen at the start of the line indicates
+                                # this is the start of a second step. This line 
+                                # is giving the step a new name.
+      uses: actions/setup-go@v2 # This same step is pulling in another predefined
+                                # action to setup the Go envirnonment.
+      with: # The setup-go action needs a parameter -- the version of Go to use.
+            # The parameter is passed as an input to the action via a 
+            # 'with' clause.   
+        go-version: '1.15.1'
+    - run: go run hello-world.go    # This is another step, one that simply runs
+                                    # a command indicated by the run keyword. 
+                                    # The command is to execute the go run
+                                    # run command on an example file in the repo.
 
 
 
